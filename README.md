@@ -17,4 +17,5 @@ Boot into safe mode and set the value of start services to 4. They are all under
 
 Leave safemode and install sysmon. Download SwiftOnSecurity's Sysmon config. Then run Sysmon.
 
-Install LimaCharlie EDR on the Windows machine.
+Install LimaCharlie EDR on the Windows machine and create an organization:
+
