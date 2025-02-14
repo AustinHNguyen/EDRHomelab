@@ -18,4 +18,11 @@ Boot into safe mode and set the value of start services to 4. They are all under
 Leave safemode and install sysmon. Download SwiftOnSecurity's Sysmon config. Then run Sysmon.
 
 Install LimaCharlie EDR on the Windows machine and create an organization:
+![image](https://github.com/user-attachments/assets/29aff637-2469-4535-82b1-7c63c7cbdde3)
 
+Create an artifact collection rule that collects Windows sysmon logs:
+![image](https://github.com/user-attachments/assets/c2f1faca-f83f-4dec-94eb-cda51a7088f6)
+
+We are done with the Windows machine for now. We can start on the attack machine. The guide uses Ubuntu, but since we are using our homelab, we already have a Kali machine set up.
+
+<h3>Attack Machine:</h3>
