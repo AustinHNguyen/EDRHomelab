@@ -25,4 +25,11 @@ Create an artifact collection rule that collects Windows sysmon logs:
 
 We are done with the Windows machine for now. We can start on the attack machine. The guide uses Ubuntu, but since we are using our homelab, we already have a Kali machine set up.
 
-<h3>Attack Machine:</h3>
+<h3>Attack:</h3>
+Download Sliver and launch it.
+
+![image](https://github.com/user-attachments/assets/5c0a501f-6f76-4f4b-9df3-98ab0685beb9)
+
+Now we can generate our first payload using this command:
+![image](https://github.com/user-attachments/assets/c4100cf5-6158-4619-936d-2ba5c117ff7d)
+
