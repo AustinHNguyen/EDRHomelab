@@ -33,3 +33,35 @@ Download Sliver and launch it.
 Now we can generate our first payload using this command:
 ![image](https://github.com/user-attachments/assets/c4100cf5-6158-4619-936d-2ba5c117ff7d)
 
+After that is finished, we use python to create a temporary web server so that we can download the C2 payload to the Windows VM
+Command: python3 -m http.server 80
+
+Go to the WindowsVM and download the malware:
+![image](https://github.com/user-attachments/assets/786c518a-cf5b-4548-89cc-f77a378be1dc)
+
+It is a good idea to snapshot the Windows VM before executing the malware.
+
+Go back to the attack VM and start both sliver and sliver http listener.
+
+![image](https://github.com/user-attachments/assets/4f0b4f25-e48d-44a2-8f7d-78786bdf093e)
+
+On the Windows VM, we can now execute the C2 payload and we should be able to see the session on the Sliver server.
+
+![image](https://github.com/user-attachments/assets/168d4d5f-cd6a-4dc9-b856-12ee48a5a94d)
+
+Now that we are in, we can use commands such as whoami and getprivs:
+![image](https://github.com/user-attachments/assets/ffdd9bd6-2f83-4759-bd16-c431bec378d4)
+
+By using ps -T, Sliver highlights any detected defensive tools in red and our own implant in green:
+
+![image](https://github.com/user-attachments/assets/9e1334d3-200b-43ec-8d60-fa9642247915)
+
+We can now check our sensors on the LimaCharlie web UI. The first tab to look at is the processes tab. Knowing which processes are normal will help figure out which processes are bad, but one way to find out is to check which processes are unsigned. By scrolling through the list, we can see that the implant is not signed, and it has an active network connection:
+
+![image](https://github.com/user-attachments/assets/ac5aca1e-8adc-4e4d-b787-0f6c8798f875)
+
+Let's try to attack the machine by stealing credentials. We can use procdump -n lsass.exe -s lsass.dmp to dump the lsass.exe process from memory.
+This works when we have the SeDebugPriviledge. When we look at the timeline for LimaCharlie when searching for SENSITIVE_PROCESS_ACCESS we can look for suspicious sources:
+![image](https://github.com/user-attachments/assets/68ac0c93-5afb-4704-bc71-ede0bd8b07bf)
+
+Now that we know an attack has occured and we have detected it, we can make a detections and response rule to alert us and respond to it.
