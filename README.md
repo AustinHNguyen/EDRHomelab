@@ -64,4 +64,8 @@ Let's try to attack the machine by stealing credentials. We can use procdump -n 
 This works when we have the SeDebugPriviledge. When we look at the timeline for LimaCharlie when searching for SENSITIVE_PROCESS_ACCESS we can look for suspicious sources:
 ![image](https://github.com/user-attachments/assets/68ac0c93-5afb-4704-bc71-ede0bd8b07bf)
 
-Now that we know an attack has occured and we have detected it, we can make a detections and response rule to alert us and respond to it.
+Now that we know an attack has occured and we have detected it, we can make a detection and response rule to alert us and respond to it.
+To create a rule, we press the button on the event tab left of the x. Fill out the rule as shown below. This is telling LimaCharlie to generate a detection report anytime a target process ends with lsass.exe.
+
+![image](https://github.com/user-attachments/assets/6a60be10-6f31-4530-b153-e23c46490ff9)
+
