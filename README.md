@@ -64,8 +64,18 @@ Let's try to attack the machine by stealing credentials. We can use procdump -n 
 This works when we have the SeDebugPriviledge. When we look at the timeline for LimaCharlie when searching for SENSITIVE_PROCESS_ACCESS we can look for suspicious sources:
 ![image](https://github.com/user-attachments/assets/68ac0c93-5afb-4704-bc71-ede0bd8b07bf)
 
-Now that we know an attack has occured and we have detected it, we can make a detection and response rule to alert us and respond to it.
+Now that we know an attack has occured and we have detected it, we can make a detection rule to alert us.
 To create a rule, we press the button on the event tab left of the x. Fill out the rule as shown below. This is telling LimaCharlie to generate a detection report anytime a target process ends with lsass.exe.
 
 ![image](https://github.com/user-attachments/assets/6a60be10-6f31-4530-b153-e23c46490ff9)
 
+We can also create rules that not only detect attacks, but also respond to them. One rule that is very useful is terminating the parent process of whatever tries to execute the command: vssadmin delete shadows /all. This is because it is a common sign of ransomware attacks, and most healthy environments would not use this.
+
+Before creating this rule we want to simulate the attack and delete the files so that we can make sure the rule is working. On the Kali machine we create a reverse shell by typing shell which gives us remote command line access. Then we use the command to delete the volume shadow copies.
+In LimaCharlie, we can go and find the detection and create a rule based off it. The rule shown below reports the attack and kills the parent process which would be the hacking tool used to gain access.
+
+![image](https://github.com/user-attachments/assets/6d21f2d8-54a9-4f6f-b692-a23824848292)
+
+Now it is time to test the rule we just created. It should terminate the parent process which would cause our shell to hang which means we no longer have access. The picture below shows proof that our rule is infact working.
+
+![image](https://github.com/user-attachments/assets/3f5750a7-cb3c-4f50-a891-26dd6d128b79)
